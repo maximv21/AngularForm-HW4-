@@ -1,0 +1,47 @@
+	<h2>
+		Reactive form 
+	</h2>
+	<form [formGroup]="myForm" novalidate (ngSubmit)="submit()">
+        <div class="form-group">
+			<label>Name</label>
+            <input class="form-control" name="name" formControlName="userName" />
+            <div class="red"*ngIf="name.errors?.required && (name.dirty||name.touched)">Please enter a name
+            </div>            
+			<div class="red"[hidden]="!name.errors?.minlength || name.pristine">Minimal length are 3				
+			</div>
+        </div>
+        <div class="form-group">
+            <label>Password</label>
+            <input class="form-control" name="password" formControlName="password" />
+			<div class="red"*ngIf = "pass.errors?.required &&(pass.dirty||pass.touched)"
+						[class.black] = "!pass.errors?.required&&!pass.hasError('capitalLetters')">Please enter a password
+            </div> 		
+            <div class="red"*ngIf = "!pass.errors?.required && pass.dirty&&pass.invalid"
+						[class.black] = "!pass.errors?.required&&!pass.hasError('capitalLetters')">Enter at least 1 capital letter
+            </div>
+			<div class="red"*ngIf = "!pass.errors?.required && pass.dirty&&pass.invalid"
+						[class.black] = "!pass.errors?.required&&!pass.hasError('lowCaseLetters')">Enter at least 1 low case letter
+            </div>
+			<div class="red"*ngIf = "!pass.errors?.required && pass.dirty&&pass.invalid"
+						[class.black] = "!pass.errors?.required&&!pass.hasError('digits')">Enter at least 1 digit
+            </div>
+        </div>
+        <div  class="form-group"formArrayName="emails">
+            <div class="email" *ngFor="let email of emailsFormArray.controls;; let i = index">
+				<label>Email</label>
+				<input class="form-control" formControlName="{{i}}" />
+				<div class="red"*ngIf="email.errors?.email && emailsFormArray.controls[i].dirty">Uncorrect email
+				</div>
+				<div class="red"*ngIf="email.errors?.required && (emailsFormArray.controls[i].dirty||emailsFormArray.controls[i].touched)">Please enter email
+				</div>
+				<button  (click)="removeEmail(i)">Remove email
+				</button>
+            </div>
+            <button  (click)="addEmail()">Add email
+            </button>
+        </div>
+        <div class="form-group">
+            <button class="submit"[disabled]="myForm.invalid" >Submit
+            </button>
+        </div>
+    </form>

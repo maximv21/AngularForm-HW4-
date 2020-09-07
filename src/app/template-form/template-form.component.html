@@ -1,0 +1,25 @@
+	<h2>
+		Template driven form
+	</h2>
+	<form #myForm="ngForm" novalidate (ngSubmit)="onSubmit(myForm)">
+		<div class="form-group">
+			<label>Email</label>
+			<input class="form-control" name="email" ngModel #email="ngModel" required email />
+			<div class="red"[hidden]="!email.errors?.required || (email.pristine&&email.untouched)">Please enter an email
+			</div>
+			<div class="red"[hidden]="!email.errors?.email || email.pristine">Uncorrect email
+            </div>
+		</div>
+		<div class="form-group">
+			<label>Password</label>
+			<input class="form-control" name="pass" ngModel #pass="ngModel" required minlength=4 maxlength=6 />
+			<div class="red"[hidden]="!pass.errors?.required || (pass.pristine&&pass.untouched)">Please enter a password
+			</div>
+            <div class="red"[hidden]="!pass.errors?.minlength || pass.pristine">Minimal length are 4
+            </div>
+		</div>
+		<div class="form-group">
+			<button class="submit" [disabled]="myForm.invalid">Submit
+            </button>
+		</div>
+	</form>
