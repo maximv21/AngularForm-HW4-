@@ -36,15 +36,14 @@ export class ReactiveFormComponent  {
 		}
 		/*All the errors are stored in object and  returned to 'formControl error object'*/
 		if (/[A-Z]+/g.test(value) === false) {
-			errors.capitalLetters = "password must include at least 1 capital letter"
+			errors.capitalLetters = "Enter at least 1 capital letter"
 		}
 		if (/[a-z]+/g.test(value) === false) {
-			errors.lowCaseLetters = "password must include at least 1 low case letter"  
+			errors.lowCaseLetters = "Enter at least 1 low case letter"  
 		}
 		if (/[0-9]+/g.test(value) === false) {
-			errors.digits = "password must include at least 1 digit"
+			errors.digits = "Enter at least 1 digit"
 		}
-		console.log(errors)
 			return errors;
 
 	}   
